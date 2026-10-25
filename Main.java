@@ -35,7 +35,7 @@ class LRUCache {
     }
 
     //returns value if key exists or else it returns -1
-    public int get(int key) {
+    public synchronized int get(int key) {
         Node node = cache.get(key);
         if (node == null) {
             return -1;
@@ -45,7 +45,7 @@ class LRUCache {
         return node.value;
     }
     // inserts a new key-value pair or updates an existing key
-    public void put(int key, int value) {
+    public synchronized void put(int key, int value) {
         //a zero-capacity cache cannot store any entries
         if (capacity == 0) {
             return;
@@ -94,7 +94,7 @@ class LRUCache {
     }
 
     // Returns the current number of stored entries.
-    public int size() {
+    public synchronized int size() {
         return size;
     }
     // Returns the maximum number of entries allowed.
@@ -103,12 +103,12 @@ class LRUCache {
     }
     // Returns whether the cache contains the given key.
     // Useful when -1 is a valid stored value.
-    public boolean containsKey(int key) {
+    public synchronized boolean containsKey(int key){
         return cache.containsKey(key);
     } 
     // Returns the keys from most recently used to
     // least recently used. Useful for testing.
-    public String getRecencyOrder() {
+    public synchronized String getRecencyOrder(){
         StringBuilder result = new StringBuilder();
         Node current = head.next;
         while (current != tail) {
